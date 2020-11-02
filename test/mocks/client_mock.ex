@@ -1,4 +1,4 @@
-defmodule WitaiClientMock do
+defmodule ClientMock do
 
     @success_code 200
 

@@ -1,7 +1,14 @@
 defmodule WitaiTest do
     use ExUnit.Case
 
+    setup_all do
+        Application.put_env(:witai, :http_client, ClientMock, persistent: false)
+    end
+
     test "can send a message and get a response" do
+        # client = Application.fetch_env!(:witai, :http_client)
+        # IO.inspect client
+        Application.put_env(:witai, :http_client, ClientMock, persistent: false)
         resp = Witai.message("hey")
 
         assert resp == {:hello, %{"metric" => "metric_visitor"}}
@@ -10,7 +17,7 @@ defmodule WitaiTest do
     test "can create an intent" do
         resp = Witai.create_intent("buy_flowers")
 
-        assert resp == Codebot.Mock.WitaiRequestClient.post_intent_res_body
+        assert resp == ClientMock.post_intent_res_body
     end
 
     test "can delete an intent" do
@@ -28,7 +35,7 @@ defmodule WitaiTest do
             ]
         })
 
-        assert resp == Codebot.Mock.WitaiRequestClient.post_entity_res_body
+        assert resp == ClientMock.post_entity_res_body
     end
 
     test "can delete an entity" do
@@ -55,7 +62,7 @@ defmodule WitaiTest do
             }
         ])
 
-        assert resp == Codebot.Mock.WitaiRequestClient.post_utterance_resp_body
+        assert resp == ClientMock.post_utterance_resp_body
     end
 
     test "can delete an utterance" do

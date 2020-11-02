@@ -64,7 +64,13 @@ defmodule Witai do
 
     @spec create_intent(binary) :: map
     def create_intent(name) when is_binary(name) do
-        Client.post "#{ @base_url }/intents?v=#{ @version }", JSON.encode!(%{"name" => name})
+        Client.post "#{ @base_url }/intents?v=#{ @version }", %{"name" => name}
+    end
+
+    @spec create_intents(list) :: list
+    def create_intents(names) when is_list(names) do
+        names
+        |> Enum.map(fn (name)-> create_intent(name) end)
     end
 
     @spec delete_intent(binary) :: :ok | :fail

@@ -24,3 +24,4 @@ witai-*.tar
 
 .elixir_ls
 
+.env
