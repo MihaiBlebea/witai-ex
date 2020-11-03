@@ -6,9 +6,6 @@ defmodule WitaiTest do
     end
 
     test "can send a message and get a response" do
-        # client = Application.fetch_env!(:witai, :http_client)
-        # IO.inspect client
-        Application.put_env(:witai, :http_client, ClientMock, persistent: false)
         resp = Witai.message("hey")
 
         assert resp == {:hello, %{"metric" => "metric_visitor"}}
