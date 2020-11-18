@@ -37,7 +37,7 @@ defmodule Witai do
     end
 
     defp to_atom(nil) do
-        raise "No valid intent found"
+        :no_intent
     end
 
     defp extract_entities(entities) when is_map(entities) do
